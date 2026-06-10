@@ -190,26 +190,25 @@ function dibujarHexagono(ctx, x, y, radio) {
 function disparar(mouseX, mouseY) {
   if (rafagasRestantes <= 0) return
 
-  let panalMasCercano = null
-  let distanciaMinima = Infinity
+  const margen = 25
+  let panalApuntado = null
 
   for (const panal of panales) {
     if (panal.agresividad === 0) continue
-    const cx = panal.x + panal.ancho / 2
-    const cy = panal.y + panal.alto / 2
-    const dist = Math.sqrt((mouseX - cx) ** 2 + (mouseY - cy) ** 2)
-    if (dist < distanciaMinima) {
-      distanciaMinima = dist
-      panalMasCercano = panal
+    const dentroX = mouseX >= panal.x - margen && mouseX <= panal.x + panal.ancho + margen
+    const dentroY = mouseY >= panal.y - margen && mouseY <= panal.y + panal.alto + margen
+    if (dentroX && dentroY) {
+      panalApuntado = panal
+      break
     }
   }
 
-  if (!panalMasCercano) return
+  if (!panalApuntado) return
 
-  const agresividadAntes = panalMasCercano.agresividad
-  panalMasCercano.agresividad = Math.max(0, panalMasCercano.agresividad - 25)
+  const agresividadAntes = panalApuntado.agresividad
+  panalApuntado.agresividad = Math.max(0, panalApuntado.agresividad - 25)
 
-  if (agresividadAntes > 0 && panalMasCercano.agresividad === 0) {
+  if (agresividadAntes > 0 && panalApuntado.agresividad === 0) {
     estado.puntaje += 10
   }
 

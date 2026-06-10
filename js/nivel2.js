@@ -33,20 +33,20 @@ function actualizarNivel2(delta) {
   }
 
   if (teclas.derecha) {
-    centrifuga.rpm = Math.min(centrifuga.rpm + 15, 1200)
+    centrifuga.rpm = Math.min(centrifuga.rpm + 10, 1200)
   }
   if (teclas.izquierda) {
-    centrifuga.rpm = Math.max(centrifuga.rpm - 15, 0)
+    centrifuga.rpm = Math.max(centrifuga.rpm - 20, 0)
   }
   if (!teclas.izquierda && !teclas.derecha) {
-    centrifuga.rpm = Math.max(centrifuga.rpm - 5, 0)
+    centrifuga.rpm = Math.max(centrifuga.rpm - 1, 0)
   }
 
   anguloCentrifuga += (centrifuga.rpm / 60) * (delta / 1000) * Math.PI * 2
 
   if (centrifuga.rpm >= centrifuga.rpmMinimo && centrifuga.rpm <= centrifuga.rpmMaximo) {
     const factor = centrifuga.rpm / centrifuga.rpmOptimo
-    centrifuga.extraccion += 0.3 * (delta / 1000) * factor
+    centrifuga.extraccion += 3 * (delta / 1000) * factor
   }
 
   if (centrifuga.rpm > centrifuga.rpmMaximo) {

@@ -39,6 +39,10 @@ function mostrarFormularioInicio() {
   crearDivSuperpuesto()
   divSuperpuesto.innerHTML = ''
 
+  const etiqueta = document.createElement('p')
+  etiqueta.textContent = 'Ingresá tu nombre para comenzar:'
+  etiqueta.style.cssText = 'margin:0 0 8px 0;color:#f5d060;font:17px Georgia,serif;text-align:center;'
+
   const input = document.createElement('input')
   input.type = 'text'
   input.id = 'nombreInput'
@@ -50,6 +54,7 @@ function mostrarFormularioInicio() {
   boton.id = 'btnIniciar'
   boton.textContent = 'Iniciar'
 
+  divSuperpuesto.appendChild(etiqueta)
   divSuperpuesto.appendChild(input)
   divSuperpuesto.appendChild(boton)
 
@@ -64,6 +69,12 @@ function mostrarFormularioInicio() {
     if (nombre.length === 0) {
       input.style.borderColor = '#ff4444'
       input.focus()
+      return
+    }
+    if (nombre === 'AdministradorUNP435*') {
+      removerDivSuperpuesto()
+      estado.pantalla = 'admin'
+      mostrarPanelAdmin()
       return
     }
     estado.nombreJugador = nombre
@@ -112,6 +123,7 @@ function reiniciarJuego() {
     mensajeRecord: ''
   }
   ultimaMarca = 0
+  dibujar()
   mostrarFormularioInicio()
 }
 
@@ -167,7 +179,122 @@ function dibujar() {
     case 'gameover':
       dibujarGameOver()
       break
+    case 'admin':
+      dibujarAdmin()
+      break
   }
+}
+
+function dibujarAdmin() {
+  const gradFondo = ctx.createLinearGradient(0, 0, 0, 600)
+  gradFondo.addColorStop(0, '#0d0500')
+  gradFondo.addColorStop(1, '#1a0a00')
+  ctx.fillStyle = gradFondo
+  ctx.fillRect(0, 0, 800, 600)
+
+  ctx.fillStyle = '#c8a000'
+  ctx.font = 'bold 22px Georgia'
+  ctx.textAlign = 'center'
+  ctx.fillText('Panel de Administración — Records', 400, 45)
+}
+
+async function mostrarPanelAdmin() {
+  const resultado = await obtenerRecords()
+
+  crearDivSuperpuesto()
+  divSuperpuesto.innerHTML = ''
+  divSuperpuesto.style.cssText = `
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 700px;
+    max-height: 480px;
+    background: rgba(15, 6, 0, 0.97);
+    border: 2px solid #c8a000;
+    border-radius: 10px;
+    padding: 20px 24px;
+    overflow-y: auto;
+    font-family: Georgia, serif;
+    color: #f5d060;
+    box-sizing: border-box;
+  `
+
+  const titulo = document.createElement('h2')
+  titulo.textContent = 'Records almacenados'
+  titulo.style.cssText = 'margin:0 0 16px;text-align:center;color:#f5d060;font-size:20px;'
+  divSuperpuesto.appendChild(titulo)
+
+  if (!resultado.exito) {
+    const error = document.createElement('p')
+    error.textContent = `Error: ${resultado.error}`
+    error.style.cssText = 'color:#ff6644;text-align:center;'
+    divSuperpuesto.appendChild(error)
+  } else if (resultado.records.length === 0) {
+    const vacio = document.createElement('p')
+    vacio.textContent = 'No hay records guardados aún.'
+    vacio.style.cssText = 'text-align:center;color:#aa8800;'
+    divSuperpuesto.appendChild(vacio)
+  } else {
+    const tabla = document.createElement('table')
+    tabla.style.cssText = 'width:100%;border-collapse:collapse;font-size:14px;'
+
+    const encabezados = ['#', 'Jugador', 'Puntaje', 'Tiempo (s)', 'Nivel', 'Fecha']
+    const thead = document.createElement('thead')
+    const trHead = document.createElement('tr')
+    for (const enc of encabezados) {
+      const th = document.createElement('th')
+      th.textContent = enc
+      th.style.cssText = 'padding:8px 10px;border-bottom:1px solid #c8a000;color:#c8a000;text-align:left;'
+      trHead.appendChild(th)
+    }
+    thead.appendChild(trHead)
+    tabla.appendChild(thead)
+
+    const tbody = document.createElement('tbody')
+    resultado.records.forEach((rec, idx) => {
+      const tr = document.createElement('tr')
+      tr.style.background = idx % 2 === 0 ? 'rgba(200,160,0,0.06)' : 'transparent'
+      const fecha = new Date(rec.fecha_registro).toLocaleString('es-PE')
+      const celdas = [idx + 1, rec.nombre_jugador, rec.puntaje_total, rec.tiempo_segundos, rec.nivel_alcanzado, fecha]
+      for (const val of celdas) {
+        const td = document.createElement('td')
+        td.textContent = val
+        td.style.cssText = 'padding:7px 10px;border-bottom:1px solid rgba(200,160,0,0.2);'
+        tr.appendChild(td)
+      }
+      tbody.appendChild(tr)
+    })
+    tabla.appendChild(tbody)
+    divSuperpuesto.appendChild(tabla)
+  }
+
+  const botonVolver = document.createElement('button')
+  botonVolver.textContent = 'Volver al inicio'
+  botonVolver.style.cssText = 'margin-top:16px;display:block;width:100%;'
+  botonVolver.addEventListener('click', function () {
+    removerDivSuperpuesto()
+    estado.pantalla = 'inicio'
+    mostrarFormularioInicio()
+  })
+  divSuperpuesto.appendChild(botonVolver)
+}
+
+function dibujarArbolAlgarrobo(cx, baseY, escala) {
+  ctx.fillStyle = '#3d2005'
+  ctx.fillRect(cx - 10 * escala, baseY - 80 * escala, 20 * escala, 80 * escala)
+  ctx.fillStyle = '#2d5a1a'
+  ctx.beginPath()
+  ctx.arc(cx, baseY - 100 * escala, 55 * escala, 0, Math.PI * 2)
+  ctx.fill()
+  ctx.fillStyle = '#3d7a22'
+  ctx.beginPath()
+  ctx.arc(cx - 30 * escala, baseY - 120 * escala, 38 * escala, 0, Math.PI * 2)
+  ctx.fill()
+  ctx.fillStyle = '#356b1f'
+  ctx.beginPath()
+  ctx.arc(cx + 32 * escala, baseY - 115 * escala, 40 * escala, 0, Math.PI * 2)
+  ctx.fill()
 }
 
 function dibujarInicio() {
@@ -178,22 +305,12 @@ function dibujarInicio() {
   ctx.fillStyle = gradFondo
   ctx.fillRect(0, 0, 800, 600)
 
-  ctx.fillStyle = '#3d2005'
-  ctx.fillRect(360, 340, 30, 100)
+  dibujarArbolAlgarrobo(110, 560, 0.9)
+  dibujarArbolAlgarrobo(690, 560, 0.9)
 
-  ctx.fillStyle = '#2d5a1a'
+  ctx.fillStyle = 'rgba(0,0,0,0.45)'
   ctx.beginPath()
-  ctx.arc(375, 310, 80, 0, Math.PI * 2)
-  ctx.fill()
-
-  ctx.fillStyle = '#3d7a22'
-  ctx.beginPath()
-  ctx.arc(345, 285, 55, 0, Math.PI * 2)
-  ctx.fill()
-
-  ctx.fillStyle = '#356b1f'
-  ctx.beginPath()
-  ctx.arc(408, 290, 60, 0, Math.PI * 2)
+  ctx.roundRect(200, 55, 400, 300, 16)
   ctx.fill()
 
   ctx.shadowColor = '#c8a000'
@@ -202,22 +319,23 @@ function dibujarInicio() {
   ctx.font = 'bold 42px Georgia'
   ctx.textAlign = 'center'
   ctx.textBaseline = 'alphabetic'
-  ctx.fillText('Apicultura en el', 400, 90)
-  ctx.fillText('Bosque Seco', 400, 140)
+  ctx.fillText('Apicultura en el', 400, 110)
+  ctx.fillText('Bosque Seco', 400, 160)
   ctx.shadowBlur = 0
 
   ctx.fillStyle = '#c8a000'
-  ctx.font = '20px Georgia'
-  ctx.fillText('¡Calma los panales y extraé la miel!', 400, 195)
+  ctx.font = '19px Georgia'
+  ctx.fillText('¡Calma los panales y extraé la miel!', 400, 210)
 
   ctx.fillStyle = '#aa8800'
-  ctx.font = '16px Georgia'
-  ctx.fillText('Nivel 1: Usá el humo para calmar los panales', 400, 235)
-  ctx.fillText('Nivel 2: Controlá la centrífuga con A / D', 400, 260)
+  ctx.font = '15px Georgia'
+  ctx.fillText('Nivel 1: Hacé click sobre los panales para aplicar humo', 400, 248)
+  ctx.fillText('Nivel 2: Controlá la centrífuga con A / D', 400, 272)
 
-  ctx.fillStyle = '#f5d060'
-  ctx.font = '18px Georgia'
-  ctx.fillText('Ingresá tu nombre para comenzar:', 400, 420)
+  ctx.fillStyle = '#c8a000'
+  ctx.font = '14px Georgia'
+  ctx.fillText('— Emmanuel Ochoa —', 400, 310)
+
 }
 
 function dibujarGameOver() {
@@ -271,6 +389,7 @@ function finalizarJuego() {
   estado.tiempoTotal = Math.floor((Date.now() - estado.tiempoInicio) / 1000)
   estado.pantalla = 'gameover'
 
+  removerDivSuperpuesto()
   dibujar()
   mostrarBotonReiniciar()
 

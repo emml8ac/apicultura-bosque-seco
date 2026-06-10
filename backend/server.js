@@ -31,6 +31,17 @@ app.post('/api/guardar-record', async (req, res) => {
   }
 })
 
+app.get('/api/records', async (req, res) => {
+  try {
+    const [filas] = await pool.execute(
+      'SELECT id, nombre_jugador, puntaje_total, tiempo_segundos, nivel_alcanzado, fecha_registro FROM tabla_records ORDER BY puntaje_total DESC'
+    )
+    res.json({ exito: true, records: filas })
+  } catch (error) {
+    res.status(500).json({ exito: false, error: 'Error al obtener records' })
+  }
+})
+
 app.listen(PUERTO, () => {
   console.log(`Servidor corriendo en puerto ${PUERTO}`)
 })
