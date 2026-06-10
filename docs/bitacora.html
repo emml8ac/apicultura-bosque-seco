@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bitácora de Desarrollo — Apicultura en el Bosque Seco</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #0d0500; color: #e0c060; font-family: Georgia, serif; padding: 40px 20px; }
+    .contenedor { max-width: 860px; margin: 0 auto; }
+    h1 { color: #f5d060; font-size: 2rem; text-align: center; margin-bottom: 6px; text-shadow: 0 0 16px #c8a000; }
+    .subtitulo { text-align: center; color: #aa8800; margin-bottom: 40px; font-size: 0.95rem; }
+    .entrada { border-left: 3px solid #c8a000; padding: 18px 24px; margin-bottom: 28px; background: rgba(200,160,0,0.05); border-radius: 0 8px 8px 0; }
+    .entrada .fecha { color: #c8a000; font-size: 0.85rem; font-weight: bold; letter-spacing: 1px; margin-bottom: 6px; }
+    .entrada h2 { color: #f5d060; font-size: 1.1rem; margin-bottom: 10px; }
+    .entrada p { color: #ccaa50; line-height: 1.7; margin-bottom: 8px; font-size: 0.95rem; }
+    .entrada ul { padding-left: 20px; color: #ccaa50; line-height: 1.8; font-size: 0.95rem; }
+    .tag { display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: 0.78rem; margin-right: 6px; margin-bottom: 8px; font-family: monospace; }
+    .tag-setup { background: rgba(80,200,80,0.15); color: #66cc66; border: 1px solid #44aa44; }
+    .tag-bug { background: rgba(220,60,60,0.15); color: #ff7766; border: 1px solid #aa3333; }
+    .tag-feature { background: rgba(80,120,220,0.15); color: #88aaff; border: 1px solid #4466cc; }
+    .tag-mejora { background: rgba(200,160,0,0.2); color: #f5d060; border: 1px solid #c8a000; }
+    .tag-deploy { background: rgba(160,80,220,0.15); color: #cc88ff; border: 1px solid #8844cc; }
+    hr { border: none; border-top: 1px solid rgba(200,160,0,0.2); margin: 32px 0; }
+    .nav { text-align: center; margin-bottom: 32px; }
+    .nav a { color: #c8a000; text-decoration: none; margin: 0 14px; font-size: 0.9rem; }
+    .nav a:hover { color: #f5d060; }
+    footer { text-align: center; color: #5a4a20; margin-top: 48px; font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+<div class="contenedor">
+  <h1>Bitácora de Desarrollo</h1>
+  <p class="subtitulo">Videojuego #22 — Apicultura en el Bosque Seco · Dr. Walter R. Paiva Ayala · UNP 2026</p>
+
+  <nav class="nav">
+    <a href="manual.html">Manual</a>
+    <a href="glosario.html">Glosario</a>
+    <a href="diagrama-contexto.html">Diagrama de Contexto</a>
+    <a href="../index.html">Jugar</a>
+  </nav>
+
+  <div class="entrada">
+    <div class="fecha">SESIÓN 1 — 10 de junio de 2026</div>
+    <h2>Configuración del entorno de desarrollo</h2>
+    <span class="tag tag-setup">Setup</span>
+    <p>Se instaló MySQL 8.0 en el entorno WSL2 (Ubuntu 24.04) del equipo de desarrollo. Se configuró el usuario root con contraseña para acceso local y se creó la base de datos <code>juego_piurano_db</code> con la tabla <code>tabla_records</code> según el esquema proporcionado por el manual del Dr. Paiva Ayala.</p>
+    <ul>
+      <li>Instalación: <code>sudo apt-get install mysql-server</code></li>
+      <li>Creación de base de datos y tabla mediante sentencias SQL del manual</li>
+      <li>Instalación del MCP server <code>@benborla29/mcp-server-mysql</code> para integración con el entorno de desarrollo</li>
+      <li>Configuración de variables de entorno: host 127.0.0.1, puerto 3306, base juego_piurano_db</li>
+    </ul>
+  </div>
+
+  <div class="entrada">
+    <div class="fecha">SESIÓN 2 — 10 de junio de 2026</div>
+    <h2>Diseño de arquitectura y planificación SDD</h2>
+    <span class="tag tag-feature">Arquitectura</span>
+    <p>Se definió la arquitectura cliente-servidor del juego siguiendo el modelo desacoplado requerido por el manual. Se eligió Node.js con Express para el backend por su compatibilidad con el entorno de desarrollo y por simplificar la gestión asíncrona de la conexión MySQL.</p>
+    <ul>
+      <li>Frontend: HTML5 Canvas (800×600), CSS3, JavaScript vanilla</li>
+      <li>Backend: Node.js + Express + mysql2 con prepared statements</li>
+      <li>Patrón de estado central con máquina de estados: inicio → nivel1 → nivel2 → gameover</li>
+      <li>Convención de código: funciones y variables en español, sin comentarios</li>
+      <li>Se definieron los módulos: juego.js, nivel1.js, nivel2.js, api.js</li>
+    </ul>
+  </div>
+
+  <div class="entrada">
+    <div class="fecha">SESIÓN 3 — 10 de junio de 2026</div>
+    <h2>Implementación del juego completo</h2>
+    <span class="tag tag-feature">Implementación</span>
+    <p>Se desarrollaron todos los archivos del proyecto: 9 archivos, 2075 líneas de código. Se implementaron ambos niveles con mecánicas diferenciadas, el backend con persistencia MySQL y el formulario de ingreso de nombre.</p>
+    <ul>
+      <li><strong>Nivel 1</strong>: 4 panales con barra de agresividad, 20 ráfagas de humo, temporizador 60s, efecto visual de humo, abejas animadas orbitando</li>
+      <li><strong>Nivel 2</strong>: Velocímetro de RPM con arco Canvas, zona óptima 600–1000 RPM, barra de extracción de miel, rotación animada de centrífuga</li>
+      <li><strong>Backend</strong>: endpoint POST /api/guardar-record con validación y prepared statements</li>
+      <li>Sistema de puntaje: inicio 1000 pts, +10 por panal pacificado, +200 al completar nivel 2, -1 pt/segundo</li>
+      <li>Commit inicial: <code>da12fbb</code></li>
+    </ul>
+  </div>
+
+  <div class="entrada">
+    <div class="fecha">SESIÓN 4 — 10 de junio de 2026</div>
+    <h2>Correcciones y mejoras de jugabilidad</h2>
+    <span class="tag tag-bug">Bug Fix</span>
+    <span class="tag tag-mejora">Mejora</span>
+    <p>Se identificaron y corrigieron varios problemas de jugabilidad reportados durante las pruebas.</p>
+    <ul>
+      <li><strong>Bug: extracción de miel demasiado lenta.</strong> Tasa original: 0.3%/s (requería 333s para 100%). Corregida a 1.5%/s (completable en ~65s con el timer de 90s).</li>
+      <li><strong>Mejora: controles de centrífuga.</strong> Fricción reducida de 5 RPM/frame a 1 RPM/frame. El jugador ya no necesita mantener la tecla presionada; alcanza la zona óptima y el RPM cae lentamente por inercia.</li>
+      <li><strong>Bug: click en cualquier lugar eliminaba abejas.</strong> Se agregó hit-testing por rectángulo con margen de 25px. Ahora el click debe apuntar al panal para tener efecto.</li>
+      <li><strong>Bug: árbol superpuesto al formulario de inicio.</strong> El árbol decorativo central fue movido a los costados (x=110 y x=690). Se extrajo función <code>dibujarArbolAlgarrobo()</code> reutilizable.</li>
+      <li><strong>Bug: label "Ingresá tu nombre" aparecía detrás del formulario HTML.</strong> Se migró el label del canvas al div HTML superpuesto como elemento <code>&lt;p&gt;</code>.</li>
+      <li><strong>Bug: superposición del formulario de inicio sobre la pantalla de gameover.</strong> Corregido con <code>removerDivSuperpuesto()</code> al inicio de <code>finalizarJuego()</code> y <code>dibujar()</code> en <code>reiniciarJuego()</code>.</li>
+    </ul>
+  </div>
+
+  <div class="entrada">
+    <div class="fecha">SESIÓN 5 — 10 de junio de 2026</div>
+    <h2>Panel de administración y despliegue</h2>
+    <span class="tag tag-feature">Feature</span>
+    <span class="tag tag-deploy">Deploy</span>
+    <p>Se implementó el panel de administración con acceso por contraseña y se publicó el proyecto en GitHub.</p>
+    <ul>
+      <li>Panel de administración: nombre especial <code>AdministradorUNP435*</code> lista todos los récords de MySQL en tabla HTML</li>
+      <li>Nuevo endpoint: GET /api/records con resultados ordenados por puntaje descendente</li>
+      <li>Verificación de funcionamiento: registro <code>gudnesssss, 1240 pts, 82s, nivel 2</code> guardado correctamente</li>
+      <li>Repositorio creado: <a href="https://github.com/emml8ac/apicultura-bosque-seco" style="color:#c8a000">github.com/emml8ac/apicultura-bosque-seco</a></li>
+      <li>GitHub Pages activado: <a href="https://emml8ac.github.io/apicultura-bosque-seco/" style="color:#c8a000">emml8ac.github.io/apicultura-bosque-seco</a></li>
+      <li>Documentación técnica generada: bitácora, diagrama de contexto, glosario, manual</li>
+    </ul>
+  </div>
+
+  <footer>Apicultura en el Bosque Seco · UNP 2026 · Región Piura, Perú</footer>
+</div>
+</body>
+</html>

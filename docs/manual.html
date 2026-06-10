@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manual de Usuario — Apicultura en el Bosque Seco</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #0d0500; color: #e0c060; font-family: Georgia, serif; padding: 40px 20px; }
+    .contenedor { max-width: 860px; margin: 0 auto; }
+    h1 { color: #f5d060; font-size: 2rem; text-align: center; margin-bottom: 6px; text-shadow: 0 0 16px #c8a000; }
+    .subtitulo { text-align: center; color: #aa8800; margin-bottom: 36px; font-size: 0.95rem; }
+    .nav { text-align: center; margin-bottom: 32px; }
+    .nav a { color: #c8a000; text-decoration: none; margin: 0 14px; font-size: 0.9rem; }
+    .nav a:hover { color: #f5d060; }
+    h2 { color: #c8a000; font-size: 1.1rem; margin: 32px 0 14px; padding-bottom: 6px; border-bottom: 1px solid rgba(200,160,0,0.25); }
+    h3 { color: #f5d060; font-size: 1rem; margin: 22px 0 10px; }
+    p { color: #ccaa50; line-height: 1.75; margin-bottom: 12px; font-size: 0.93rem; }
+    ul, ol { padding-left: 22px; color: #ccaa50; line-height: 1.85; font-size: 0.93rem; margin-bottom: 14px; }
+    li { margin-bottom: 4px; }
+    code { background: rgba(200,160,0,0.12); padding: 2px 7px; border-radius: 3px; font-family: monospace; font-size: 0.85em; color: #f5d060; }
+    .bloque-cmd { background: #0a0400; border: 1px solid rgba(200,160,0,0.3); border-radius: 8px; padding: 14px 18px; margin: 12px 0 18px; font-family: monospace; font-size: 0.88rem; color: #c8a000; line-height: 1.8; }
+    .bloque-cmd .comentario { color: #5a4a20; }
+    .panel-nivel { background: rgba(200,160,0,0.06); border: 1px solid rgba(200,160,0,0.2); border-radius: 10px; padding: 20px 24px; margin-bottom: 24px; }
+    .panel-nivel h3 { margin-top: 0; }
+    .controles { display: flex; flex-wrap: wrap; gap: 10px; margin: 12px 0; }
+    .tecla { display: inline-flex; align-items: center; justify-content: center; background: rgba(200,160,0,0.15); border: 1.5px solid #c8a000; border-radius: 6px; padding: 6px 16px; color: #f5d060; font-size: 0.88rem; font-family: monospace; min-width: 70px; }
+    .tecla-desc { color: #ccaa50; font-size: 0.88rem; padding: 6px 0; align-self: center; }
+    .alerta { background: rgba(255,100,60,0.1); border-left: 3px solid #ff6644; padding: 12px 16px; border-radius: 0 6px 6px 0; margin: 14px 0; color: #ffaa88; font-size: 0.9rem; line-height: 1.6; }
+    .sugerencia { background: rgba(80,200,80,0.08); border-left: 3px solid #66cc66; padding: 12px 16px; border-radius: 0 6px 6px 0; margin: 14px 0; color: #99cc99; font-size: 0.9rem; line-height: 1.6; }
+    .puntaje-tabla { width: 100%; border-collapse: collapse; margin: 12px 0 18px; font-size: 0.9rem; }
+    .puntaje-tabla th { background: rgba(200,160,0,0.15); color: #f5d060; padding: 9px 14px; text-align: left; border-bottom: 2px solid #c8a000; }
+    .puntaje-tabla td { color: #ccaa50; padding: 8px 14px; border-bottom: 1px solid rgba(200,160,0,0.1); }
+    .puntaje-tabla tr:nth-child(even) td { background: rgba(200,160,0,0.04); }
+    footer { text-align: center; color: #5a4a20; margin-top: 48px; font-size: 0.85rem; }
+    strong { color: #f5d060; }
+  </style>
+</head>
+<body>
+<div class="contenedor">
+  <h1>Mini Manual Básico</h1>
+  <p class="subtitulo">Videojuego #22 — Apicultura en el Bosque Seco · Dr. Walter R. Paiva Ayala · UNP 2026</p>
+
+  <nav class="nav">
+    <a href="bitacora.html">Bitácora</a>
+    <a href="glosario.html">Glosario</a>
+    <a href="diagrama-contexto.html">Diagrama</a>
+    <a href="../index.html">Jugar</a>
+  </nav>
+
+  <!-- DESCRIPCIÓN -->
+  <h2>1. Descripción del Juego</h2>
+  <p><strong>Apicultura en el Bosque Seco</strong> es un videojuego educativo de 2 niveles ambientado en la región Piura, Perú. El jugador asume el rol de un apicultor del bosque seco que debe calmar los panales de abejas y operar una centrífuga para extraer la miel.</p>
+  <p>El juego pone a prueba la precisión y el control del jugador mientras presenta elementos de la apicultura regional piurana.</p>
+
+  <!-- REQUISITOS -->
+  <h2>2. Requisitos del Sistema</h2>
+
+  <h3>Para jugar (modo en línea)</h3>
+  <ul>
+    <li>Navegador web moderno: Chrome 90+, Firefox 88+, Edge 90+ o Safari 14+</li>
+    <li>Ratón o trackpad (Nivel 1 requiere clicks)</li>
+    <li>Teclado (Nivel 2 requiere teclas A / D)</li>
+    <li>Conexión a internet (para cargar la versión de GitHub Pages)</li>
+  </ul>
+
+  <h3>Para jugar con persistencia de récords (modo local)</h3>
+  <ul>
+    <li>Node.js 18 o superior</li>
+    <li>MySQL 8.0 o superior</li>
+    <li>npm 9 o superior</li>
+    <li>Sistema operativo: Windows 10/11, macOS 12+, o Ubuntu 22+</li>
+  </ul>
+
+  <!-- INSTALACIÓN -->
+  <h2>3. Instalación y Ejecución</h2>
+
+  <h3>3.1 Clonar el repositorio</h3>
+  <div class="bloque-cmd">
+    git clone https://github.com/emml8ac/apicultura-bosque-seco.git<br>
+    cd apicultura-bosque-seco
+  </div>
+
+  <h3>3.2 Configurar la base de datos MySQL</h3>
+  <p>Crear la base de datos y la tabla ejecutando las siguientes sentencias SQL en el cliente MySQL:</p>
+  <div class="bloque-cmd">
+    CREATE DATABASE IF NOT EXISTS juego_piurano_db;<br>
+    USE juego_piurano_db;<br><br>
+    CREATE TABLE IF NOT EXISTS tabla_records (<br>
+    &nbsp;&nbsp;id INT AUTO_INCREMENT PRIMARY KEY,<br>
+    &nbsp;&nbsp;nombre_jugador VARCHAR(100) NOT NULL,<br>
+    &nbsp;&nbsp;puntaje_total INT NOT NULL,<br>
+    &nbsp;&nbsp;tiempo_segundos INT NOT NULL,<br>
+    &nbsp;&nbsp;nivel_alcanzado TINYINT NOT NULL,<br>
+    &nbsp;&nbsp;fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP<br>
+    );
+  </div>
+
+  <h3>3.3 Instalar dependencias del backend</h3>
+  <div class="bloque-cmd">
+    cd backend<br>
+    npm install
+  </div>
+
+  <h3>3.4 Iniciar el servidor</h3>
+  <div class="bloque-cmd">
+    node server.js<br>
+    <span class="comentario"># El servidor inicia en http://localhost:3000</span>
+  </div>
+
+  <h3>3.5 Abrir el juego</h3>
+  <p>Abrí el archivo <code>index.html</code> con el servidor Live Server de VS Code (puerto 5500) o cualquier servidor HTTP local. <strong>No abrir directamente como archivo</strong> (<code>file://</code>) ya que las peticiones fetch quedarán bloqueadas por CORS.</p>
+
+  <div class="sugerencia">
+    <strong>Tip:</strong> Con VS Code, instalar la extensión "Live Server" y hacer click derecho en <code>index.html</code> → "Open with Live Server". El juego abre en <code>http://127.0.0.1:5500</code>.
+  </div>
+
+  <!-- CÓMO JUGAR -->
+  <h2>4. Cómo Jugar</h2>
+
+  <h3>4.1 Pantalla de inicio</h3>
+  <p>Al abrir el juego se muestra la pantalla de inicio con el título y un formulario de ingreso de nombre. Escribí tu nombre y hacé click en <strong>Iniciar</strong> (o presioná Enter) para comenzar.</p>
+
+  <div class="alerta">
+    <strong>Nota:</strong> El nombre puede tener hasta 50 caracteres. No puede quedar vacío.
+  </div>
+
+  <div class="panel-nivel">
+    <h3>4.2 Nivel 1 — Pacificación de Panales</h3>
+    <p><strong>Objetivo:</strong> Reducir la agresividad de los 4 panales a 0 antes de que se acabe el tiempo (60 segundos) o las ráfagas de humo (20 ráfagas).</p>
+
+    <h3>Controles</h3>
+    <div class="controles">
+      <div class="tecla">Click</div>
+      <div class="tecla-desc">→ sobre un panal para aplicar una ráfaga de humo</div>
+    </div>
+    <p>Cada click sobre un panal reduce su agresividad en <strong>25 puntos</strong>. Se necesitan 4 ráfagas por panal para pacificarlo completamente.</p>
+
+    <h3>Mecánicas clave</h3>
+    <ul>
+      <li>Los 4 panales tienen una barra de agresividad (naranja → verde).</li>
+      <li>El click debe apuntar <strong>directamente al panal</strong> con un margen de ±25 px. Hacer click en el aire no tiene efecto.</li>
+      <li>Puntaje: +10 puntos por cada panal pacificado.</li>
+      <li>Al pacificar los 4 panales, el juego avanza automáticamente al Nivel 2.</li>
+      <li>Si se acaban las ráfagas o el tiempo, el juego termina.</li>
+    </ul>
+
+    <div class="alerta">
+      <strong>Atención:</strong> El humo NO actúa si hacés click fuera del área del panal. Apuntá bien.
+    </div>
+  </div>
+
+  <div class="panel-nivel">
+    <h3>4.3 Nivel 2 — Operación de la Centrífuga</h3>
+    <p><strong>Objetivo:</strong> Mantener la centrífuga en la zona óptima de RPM para extraer el 100% de la miel antes de que se acabe el tiempo (90 segundos).</p>
+
+    <h3>Controles</h3>
+    <div class="controles">
+      <div class="tecla">D</div>
+      <div class="tecla-desc">→ Acelerar la centrífuga (+10 RPM por frame)</div>
+    </div>
+    <div class="controles">
+      <div class="tecla">A</div>
+      <div class="tecla-desc">→ Desacelerar la centrífuga (-20 RPM por frame)</div>
+    </div>
+    <div class="controles">
+      <div class="tecla">← →</div>
+      <div class="tecla-desc">→ Flechas del teclado (mismo efecto que A/D)</div>
+    </div>
+
+    <h3>Zonas del velocímetro</h3>
+    <table class="puntaje-tabla">
+      <thead><tr><th>Zona</th><th>RPM</th><th>Color</th><th>Efecto</th></tr></thead>
+      <tbody>
+        <tr><td>Sin extracción</td><td>0–599</td><td>Gris</td><td>No extrae miel</td></tr>
+        <tr><td>Óptima</td><td>600–1000</td><td>Verde</td><td>Extrae miel activamente</td></tr>
+        <tr><td>Peligrosa</td><td>+1001</td><td>Rojo</td><td>Pierde puntos continuamente</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Mecánicas clave</h3>
+    <ul>
+      <li>Al soltar la tecla, la centrífuga frena lentamente (-1 RPM/frame) por inercia.</li>
+      <li>La extracción es proporcional al RPM dentro de la zona óptima.</li>
+      <li>Al llegar al 100% de extracción, el juego finaliza con victoria y se guarda el récord.</li>
+      <li>Si el tiempo llega a 0 antes del 100%, el juego termina sin guardar récord.</li>
+    </ul>
+
+    <div class="sugerencia">
+      <strong>Estrategia:</strong> Acelerá con D hasta unos 750–800 RPM, soltá la tecla y dejá que la inercia mantenga los RPM en la zona verde. Así no gastás energía manteniendo presionada la tecla.
+    </div>
+  </div>
+
+  <!-- PUNTAJE -->
+  <h2>5. Sistema de Puntaje</h2>
+  <table class="puntaje-tabla">
+    <thead><tr><th>Evento</th><th>Puntos</th></tr></thead>
+    <tbody>
+      <tr><td>Puntaje inicial</td><td>1000</td></tr>
+      <tr><td>Panal pacificado (Nivel 1)</td><td>+10 por panal</td></tr>
+      <tr><td>Completar Nivel 2</td><td>+200</td></tr>
+      <tr><td>Tiempo transcurrido</td><td>-1 por segundo</td></tr>
+      <tr><td>Centrífuga en zona peligrosa</td><td>-10 por cada 100ms en rojo</td></tr>
+    </tbody>
+  </table>
+
+  <p>El récord solo se guarda en la base de datos si el jugador <strong>completa el Nivel 2</strong> (extracción al 100%).</p>
+
+  <!-- ADMIN -->
+  <h2>6. Panel de Administración</h2>
+  <p>Para ver todos los récords almacenados en la base de datos, ingresá el siguiente nombre en el formulario de inicio:</p>
+  <div class="bloque-cmd">AdministradorUNP435*</div>
+  <p>Se mostrará una tabla con todos los récords guardados: nombre del jugador, puntaje, tiempo en segundos, nivel alcanzado y fecha.</p>
+
+  <div class="alerta">
+    <strong>Requisito:</strong> El panel de administración solo funciona si el backend Node.js está corriendo en <code>localhost:3000</code>.
+  </div>
+
+  <!-- SOLUCIÓN PROBLEMAS -->
+  <h2>7. Solución de Problemas</h2>
+
+  <h3>El juego no guarda récords</h3>
+  <p>Verificá que el servidor backend esté activo (<code>node backend/server.js</code>) y que MySQL esté corriendo. La consola del navegador (F12) mostrará el error exacto de conexión.</p>
+
+  <h3>La centrífuga no responde a las teclas</h3>
+  <p>Hacé click una vez sobre el lienzo del juego para asegurarte de que tiene el foco del teclado. Si el cursor está sobre otro elemento de la página las teclas no llegarán al canvas.</p>
+
+  <h3>El juego carga en blanco</h3>
+  <p>Asegurate de estar accediendo desde un servidor HTTP (Live Server, localhost) y no desde <code>file://</code>. El protocolo file bloquea fetch() por seguridad en todos los navegadores modernos.</p>
+
+  <footer>Apicultura en el Bosque Seco · UNP 2026 · Región Piura, Perú</footer>
+</div>
+</body>
+</html>

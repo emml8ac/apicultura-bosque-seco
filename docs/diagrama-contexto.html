@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diagrama de Contexto — Apicultura en el Bosque Seco</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #0d0500; color: #e0c060; font-family: Georgia, serif; padding: 40px 20px; }
+    .contenedor { max-width: 960px; margin: 0 auto; }
+    h1 { color: #f5d060; font-size: 2rem; text-align: center; margin-bottom: 6px; text-shadow: 0 0 16px #c8a000; }
+    .subtitulo { text-align: center; color: #aa8800; margin-bottom: 36px; font-size: 0.95rem; }
+    .nav { text-align: center; margin-bottom: 32px; }
+    .nav a { color: #c8a000; text-decoration: none; margin: 0 14px; font-size: 0.9rem; }
+    .nav a:hover { color: #f5d060; }
+    .diagrama-wrapper { background: rgba(200,160,0,0.04); border: 1px solid rgba(200,160,0,0.2); border-radius: 12px; padding: 32px 16px; margin-bottom: 40px; overflow-x: auto; }
+    svg text { font-family: Georgia, serif; }
+    .leyenda { display: flex; flex-wrap: wrap; gap: 18px; justify-content: center; margin-bottom: 32px; }
+    .leyenda-item { display: flex; align-items: center; gap: 8px; font-size: 0.88rem; color: #ccaa50; }
+    .leyenda-box { width: 20px; height: 14px; border-radius: 3px; }
+    .tabla-flujos { width: 100%; border-collapse: collapse; margin-bottom: 32px; font-size: 0.9rem; }
+    .tabla-flujos th { background: rgba(200,160,0,0.15); color: #f5d060; padding: 10px 14px; text-align: left; border-bottom: 2px solid #c8a000; }
+    .tabla-flujos td { color: #ccaa50; padding: 9px 14px; border-bottom: 1px solid rgba(200,160,0,0.12); }
+    .tabla-flujos tr:nth-child(even) td { background: rgba(200,160,0,0.04); }
+    h2 { color: #f5d060; font-size: 1.15rem; margin: 28px 0 14px; }
+    footer { text-align: center; color: #5a4a20; margin-top: 48px; font-size: 0.85rem; }
+    code { background: rgba(200,160,0,0.12); padding: 1px 6px; border-radius: 3px; font-family: monospace; font-size: 0.85em; }
+  </style>
+</head>
+<body>
+<div class="contenedor">
+  <h1>Diagrama de Contexto</h1>
+  <p class="subtitulo">Videojuego #22 — Apicultura en el Bosque Seco · Dr. Walter R. Paiva Ayala · UNP 2026</p>
+
+  <nav class="nav">
+    <a href="bitacora.html">Bitácora</a>
+    <a href="manual.html">Manual</a>
+    <a href="glosario.html">Glosario</a>
+    <a href="../index.html">Jugar</a>
+  </nav>
+
+  <div class="diagrama-wrapper">
+    <svg viewBox="0 0 860 520" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:860px;display:block;margin:0 auto;">
+      <defs>
+        <marker id="flecha" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+          <polygon points="0 0, 10 3.5, 0 7" fill="#c8a000"/>
+        </marker>
+        <marker id="flecha-azul" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+          <polygon points="0 0, 10 3.5, 0 7" fill="#88aaff"/>
+        </marker>
+        <marker id="flecha-verde" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+          <polygon points="0 0, 10 3.5, 0 7" fill="#66cc66"/>
+        </marker>
+        <marker id="flecha-roja" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+          <polygon points="0 0, 10 3.5, 0 7" fill="#ff7766"/>
+        </marker>
+      </defs>
+
+      <!-- Fondo suave -->
+      <rect width="860" height="520" fill="rgba(10,4,0,0.6)" rx="8"/>
+
+      <!-- SISTEMA CENTRAL — Canvas Game -->
+      <rect x="305" y="190" width="250" height="120" rx="12" fill="rgba(200,160,0,0.18)" stroke="#c8a000" stroke-width="2.5"/>
+      <text x="430" y="237" text-anchor="middle" fill="#f5d060" font-size="14" font-weight="bold">SISTEMA</text>
+      <text x="430" y="257" text-anchor="middle" fill="#f5d060" font-size="14" font-weight="bold">Apicultura en el</text>
+      <text x="430" y="277" text-anchor="middle" fill="#f5d060" font-size="14" font-weight="bold">Bosque Seco</text>
+      <text x="430" y="297" text-anchor="middle" fill="#aa8800" font-size="11">HTML5 Canvas + JS Vanilla</text>
+
+      <!-- ENTIDAD: Jugador -->
+      <rect x="30" y="195" width="140" height="110" rx="8" fill="rgba(80,120,220,0.15)" stroke="#88aaff" stroke-width="1.8"/>
+      <text x="100" y="228" text-anchor="middle" fill="#88aaff" font-size="24">👤</text>
+      <text x="100" y="256" text-anchor="middle" fill="#88aaff" font-size="13" font-weight="bold">Jugador</text>
+      <text x="100" y="274" text-anchor="middle" fill="#8899cc" font-size="10">Interacción</text>
+      <text x="100" y="288" text-anchor="middle" fill="#8899cc" font-size="10">mouse / teclado</text>
+
+      <!-- ENTIDAD: Backend API -->
+      <rect x="690" y="195" width="140" height="110" rx="8" fill="rgba(80,200,80,0.1)" stroke="#66cc66" stroke-width="1.8"/>
+      <text x="760" y="228" text-anchor="middle" fill="#66cc66" font-size="22">⚙️</text>
+      <text x="760" y="255" text-anchor="middle" fill="#66cc66" font-size="13" font-weight="bold">Backend API</text>
+      <text x="760" y="273" text-anchor="middle" fill="#558855" font-size="10">Node.js + Express</text>
+      <text x="760" y="289" text-anchor="middle" fill="#558855" font-size="10">localhost:3000</text>
+
+      <!-- ENTIDAD: MySQL -->
+      <rect x="690" y="380" width="140" height="100" rx="8" fill="rgba(255,120,60,0.1)" stroke="#ff8844" stroke-width="1.8"/>
+      <text x="760" y="413" text-anchor="middle" fill="#ff8844" font-size="22">🗄️</text>
+      <text x="760" y="440" text-anchor="middle" fill="#ff8844" font-size="13" font-weight="bold">MySQL</text>
+      <text x="760" y="458" text-anchor="middle" fill="#bb6633" font-size="10">juego_piurano_db</text>
+      <text x="760" y="472" text-anchor="middle" fill="#bb6633" font-size="10">tabla_records</text>
+
+      <!-- ENTIDAD: GitHub Pages -->
+      <rect x="305" y="30" width="250" height="90" rx="8" fill="rgba(160,80,220,0.1)" stroke="#cc88ff" stroke-width="1.8"/>
+      <text x="430" y="62" text-anchor="middle" fill="#cc88ff" font-size="22">🌐</text>
+      <text x="430" y="88" text-anchor="middle" fill="#cc88ff" font-size="13" font-weight="bold">GitHub Pages</text>
+      <text x="430" y="106" text-anchor="middle" fill="#9966bb" font-size="10">Hosting estático</text>
+
+      <!-- FLUJOS: Jugador → Sistema -->
+      <line x1="170" y1="238" x2="303" y2="238" stroke="#88aaff" stroke-width="1.6" stroke-dasharray="none" marker-end="url(#flecha-azul)"/>
+      <text x="236" y="228" text-anchor="middle" fill="#7788dd" font-size="10">nombre</text>
+      <text x="236" y="244" text-anchor="middle" fill="#7788dd" font-size="10">clicks</text>
+
+      <!-- FLUJOS: Sistema → Jugador -->
+      <line x1="303" y1="258" x2="170" y2="258" stroke="#c8a000" stroke-width="1.6" marker-end="url(#flecha)"/>
+      <text x="236" y="275" text-anchor="middle" fill="#aa8800" font-size="10">canvas render</text>
+      <text x="236" y="287" text-anchor="middle" fill="#aa8800" font-size="10">puntaje / estado</text>
+
+      <!-- FLUJOS: Sistema → Backend -->
+      <line x1="555" y1="238" x2="688" y2="238" stroke="#88aaff" stroke-width="1.6" marker-end="url(#flecha-azul)"/>
+      <text x="621" y="228" text-anchor="middle" fill="#7788dd" font-size="10">POST record</text>
+      <text x="621" y="244" text-anchor="middle" fill="#7788dd" font-size="10">(async fetch)</text>
+
+      <!-- FLUJOS: Backend → Sistema -->
+      <line x1="688" y1="258" x2="555" y2="258" stroke="#66cc66" stroke-width="1.6" marker-end="url(#flecha-verde)"/>
+      <text x="621" y="275" text-anchor="middle" fill="#448844" font-size="10">lista records</text>
+      <text x="621" y="287" text-anchor="middle" fill="#448844" font-size="10">id confirmación</text>
+
+      <!-- FLUJOS: Backend → MySQL -->
+      <line x1="760" y1="307" x2="760" y2="378" stroke="#66cc66" stroke-width="1.6" marker-end="url(#flecha-verde)"/>
+      <text x="790" y="343" text-anchor="middle" fill="#448844" font-size="10">INSERT</text>
+      <text x="790" y="357" text-anchor="middle" fill="#448844" font-size="10">SELECT</text>
+
+      <!-- FLUJOS: GitHub Pages → Sistema -->
+      <line x1="430" y1="120" x2="430" y2="188" stroke="#cc88ff" stroke-width="1.6" marker-end="url(#flecha)"/>
+      <text x="468" y="160" text-anchor="middle" fill="#9966bb" font-size="10">sirve archivos</text>
+      <text x="468" y="172" text-anchor="middle" fill="#9966bb" font-size="10">HTML/JS/CSS</text>
+
+      <!-- NOTA técnica -->
+      <rect x="30" y="390" width="240" height="90" rx="6" fill="rgba(200,160,0,0.06)" stroke="rgba(200,160,0,0.25)" stroke-width="1" stroke-dasharray="4,3"/>
+      <text x="150" y="413" text-anchor="middle" fill="#aa8800" font-size="11" font-weight="bold">Nota de despliegue</text>
+      <text x="150" y="432" text-anchor="middle" fill="#886600" font-size="10">GitHub Pages sirve el frontend.</text>
+      <text x="150" y="448" text-anchor="middle" fill="#886600" font-size="10">El backend corre localmente</text>
+      <text x="150" y="464" text-anchor="middle" fill="#886600" font-size="10">en localhost:3000 (Node.js).</text>
+    </svg>
+  </div>
+
+  <div class="leyenda">
+    <div class="leyenda-item"><div class="leyenda-box" style="background:#88aaff;opacity:0.7"></div> Entidad externa (jugador)</div>
+    <div class="leyenda-item"><div class="leyenda-box" style="background:#c8a000;opacity:0.7"></div> Sistema central / datos al jugador</div>
+    <div class="leyenda-item"><div class="leyenda-box" style="background:#66cc66;opacity:0.7"></div> Backend / base de datos</div>
+    <div class="leyenda-item"><div class="leyenda-box" style="background:#cc88ff;opacity:0.7"></div> Hosting estático</div>
+    <div class="leyenda-item"><div class="leyenda-box" style="background:#ff8844;opacity:0.7"></div> Persistencia MySQL</div>
+  </div>
+
+  <h2>Flujos de datos principales</h2>
+  <table class="tabla-flujos">
+    <thead>
+      <tr>
+        <th>Origen</th>
+        <th>Destino</th>
+        <th>Dato</th>
+        <th>Mecanismo</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Jugador</td>
+        <td>Sistema</td>
+        <td>nombre, clicks del mouse, teclas A/D</td>
+        <td>Eventos DOM (<code>click</code>, <code>keydown</code>)</td>
+      </tr>
+      <tr>
+        <td>Sistema</td>
+        <td>Jugador</td>
+        <td>canvas renderizado, puntaje, estado del nivel</td>
+        <td><code>requestAnimationFrame</code> / HTML Canvas 2D</td>
+      </tr>
+      <tr>
+        <td>Sistema</td>
+        <td>Backend API</td>
+        <td>nombre_jugador, puntaje_total, tiempo_segundos, nivel_alcanzado</td>
+        <td><code>fetch()</code> POST asíncrono a <code>/api/guardar-record</code></td>
+      </tr>
+      <tr>
+        <td>Backend API</td>
+        <td>Sistema</td>
+        <td>id del record guardado, lista de récords</td>
+        <td><code>fetch()</code> GET a <code>/api/records</code>, respuesta JSON</td>
+      </tr>
+      <tr>
+        <td>Backend API</td>
+        <td>MySQL</td>
+        <td>INSERT / SELECT en <code>tabla_records</code></td>
+        <td>mysql2 con prepared statements</td>
+      </tr>
+      <tr>
+        <td>GitHub Pages</td>
+        <td>Sistema</td>
+        <td>index.html, js/*.js, css/estilos.css</td>
+        <td>Servidor HTTP estático (CDN GitHub)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Componentes del sistema</h2>
+  <table class="tabla-flujos">
+    <thead>
+      <tr>
+        <th>Módulo</th>
+        <th>Archivo</th>
+        <th>Responsabilidad</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Máquina de estados</td>
+        <td><code>js/juego.js</code></td>
+        <td>Estado global, bucle principal, renderizado por pantalla, overlays HTML</td>
+      </tr>
+      <tr>
+        <td>Nivel 1</td>
+        <td><code>js/nivel1.js</code></td>
+        <td>Lógica de panales, disparo de humo, abejas, temporizador 60s</td>
+      </tr>
+      <tr>
+        <td>Nivel 2</td>
+        <td><code>js/nivel2.js</code></td>
+        <td>Centrífuga, control RPM, extracción de miel, velocímetro Canvas</td>
+      </tr>
+      <tr>
+        <td>API cliente</td>
+        <td><code>js/api.js</code></td>
+        <td>Funciones <code>guardarRecord()</code> y <code>obtenerRecords()</code> via fetch</td>
+      </tr>
+      <tr>
+        <td>Servidor REST</td>
+        <td><code>backend/server.js</code></td>
+        <td>Express, endpoints POST y GET, CORS, validación de datos</td>
+      </tr>
+      <tr>
+        <td>Conexión DB</td>
+        <td><code>backend/db.js</code></td>
+        <td>Pool de conexiones mysql2, credenciales, base de datos</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <footer>Apicultura en el Bosque Seco · UNP 2026 · Región Piura, Perú</footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Glosario de Términos — Apicultura en el Bosque Seco</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #0d0500; color: #e0c060; font-family: Georgia, serif; padding: 40px 20px; }
+    .contenedor { max-width: 860px; margin: 0 auto; }
+    h1 { color: #f5d060; font-size: 2rem; text-align: center; margin-bottom: 6px; text-shadow: 0 0 16px #c8a000; }
+    .subtitulo { text-align: center; color: #aa8800; margin-bottom: 36px; font-size: 0.95rem; }
+    .nav { text-align: center; margin-bottom: 32px; }
+    .nav a { color: #c8a000; text-decoration: none; margin: 0 14px; font-size: 0.9rem; }
+    .nav a:hover { color: #f5d060; }
+    h2 { color: #c8a000; font-size: 1.05rem; text-transform: uppercase; letter-spacing: 2px; margin: 36px 0 16px; padding-bottom: 6px; border-bottom: 1px solid rgba(200,160,0,0.25); }
+    .termino { margin-bottom: 22px; display: flex; gap: 18px; }
+    .termino-palabra { min-width: 200px; color: #f5d060; font-size: 1rem; font-weight: bold; padding-top: 2px; }
+    .termino-definicion { color: #ccaa50; line-height: 1.7; font-size: 0.92rem; }
+    .termino-definicion em { color: #c8a000; font-style: normal; }
+    .tag-cat { display: inline-block; padding: 1px 8px; border-radius: 10px; font-size: 0.72rem; font-family: monospace; margin-bottom: 4px; }
+    .cat-tech { background: rgba(80,120,220,0.15); color: #88aaff; border: 1px solid #4466cc; }
+    .cat-apicola { background: rgba(200,160,0,0.15); color: #f5d060; border: 1px solid #c8a000; }
+    .cat-juego { background: rgba(80,200,80,0.12); color: #66cc66; border: 1px solid #44aa44; }
+    .cat-piura { background: rgba(220,100,40,0.15); color: #ff8844; border: 1px solid #cc6622; }
+    footer { text-align: center; color: #5a4a20; margin-top: 48px; font-size: 0.85rem; }
+    @media (max-width: 600px) { .termino { flex-direction: column; gap: 4px; } .termino-palabra { min-width: unset; } }
+  </style>
+</head>
+<body>
+<div class="contenedor">
+  <h1>Glosario de Términos</h1>
+  <p class="subtitulo">Videojuego #22 — Apicultura en el Bosque Seco · Dr. Walter R. Paiva Ayala · UNP 2026</p>
+
+  <nav class="nav">
+    <a href="bitacora.html">Bitácora</a>
+    <a href="manual.html">Manual</a>
+    <a href="diagrama-contexto.html">Diagrama</a>
+    <a href="../index.html">Jugar</a>
+  </nav>
+
+  <!-- TÉCNICO -->
+  <h2>Términos Técnicos</h2>
+
+  <div class="termino">
+    <div class="termino-palabra">HTML5 Canvas<br><span class="tag-cat cat-tech">Tecnología</span></div>
+    <div class="termino-definicion">Elemento HTML que expone una superficie de dibujo 2D controlada por JavaScript mediante la API <em>CanvasRenderingContext2D</em>. Permite dibujar formas, textos, imágenes y animaciones cuadro a cuadro sin necesidad de plugins.</div>
+  </div>
+
+  <div class="termino">
+    <div class="termino-palabra">requestAnimationFrame<br><span class="tag-cat cat-tech">Tecnología</span></div>
+    <div class="termino-definicion">Función del navegador que programa la ejecución de un callback sincronizado con la frecuencia de refresco de la pantalla (generalmente 60 fps). Es la base del bucle de juego en este proyecto, reemplazando <em>setInterval</em> para mayor rendimiento y eficiencia energética.</div>
+  </div>
+
+  <div class="termino">
+    <div class="termino-palabra">Máquina de estados<br><span class="tag-cat cat-tech">Arquitectura</span></div>
+    <div class="termino-definicion">Patrón de diseño donde el sistema puede estar en uno de varios estados mutuamente excluyentes (<em>inicio, nivel1, nivel2, gameover, admin</em>) y transiciona entre ellos de forma controlada. Simplifica la lógica y evita condiciones race entre pantallas.</div>
+  </div>
+
+  <div class="termino">
+    <div class="termino-palabra">Prepared statements<br><span class="tag-cat cat-tech">Base de datos</span></div>
+    <div class="termino-definicion">Técnica de seguridad para consultas SQL donde los parámetros se envían separados de la sentencia, previniendo inyección SQL. En este proyecto se usa la librería <em>mysql2</em> con la sintaxis de placeholders <em>?</em> para todas las operaciones de escritura en la base de datos.</div>
+  </div>
+
+  <div class="termino">
+    <div class="termino-palabra">fetch() asíncrono<br><span class="tag-cat cat-tech">Tecnología</span></div>
+    <div class="termino-definicion">API del navegador para realizar peticiones HTTP sin bloquear la interfaz de usuario. Retorna una <em>Promise</em> que se resuelve cuando el servidor responde. En este juego se usa para guardar récords y obtener la tabla de puntuaciones sin interrumpir la experiencia de juego.</div>
+  </div>
+
+  <div class="termino">
+    <div class="termino-palabra">CORS<br><span class="tag-cat cat-tech">Seguridad</span></div>
+    <div class="termino-definicion"><em>Cross-Origin Resource Sharing</em>. Política de seguridad del navegador que controla qué dominios pueden hacer peticiones a un servidor. El backend configura CORS para permitir peticiones desde <em>localhost:5500</em> (desarrollo) y el dominio de GitHub Pages (producción).</div>
+  </div>
+
+  <div class="termino">
+    <div class="termino-palabra">div superpuesto<br><span class="tag-cat cat-tech">Interfaz</span></div>
+    <div class="termino-definicion">Elemento HTML posicionado con <em>position: fixed</em> sobre el canvas para mostrar formularios y botones. El canvas es un bitmap sin DOM; superponer un div permite usar controles HTML nativos (input, button) encima del área de juego.</div>
+  </div>
+
+  <div class="termino">
+    <div class="termino-palabra">Hit-testing<br><span class="tag-cat cat-tech">Juego</span></div>
+    <div class="termino-definicion">Detección de si un punto (como el cursor del ratón) se encuentra dentro de un área de interés (como un panal). En el Nivel 1 se implementa comparando las coordenadas del click contra el rectángulo de cada panal con un margen de ±25 píxeles.</div>
+  </div>
+
+  <div class="termino">
+    <div class="termino-palabra">GitHub Pages<br><span class="tag-cat cat-tech">Despliegue</span></div>
+    <div class="termino-definicion">Servicio de hosting estático de GitHub que publica el contenido de la rama <em>main</em> como un sitio web accesible públicamente. Sirve los archivos HTML, CSS y JS del juego, pero no puede ejecutar código Node.js (el backend debe correr localmente).</div>
+  </div>
+
+  <!-- APÍCOLA -->
+  <h2>Terminología Apícola</h2>
+
+  <div class="termino">
+    <div class="termino-palabra">Apicultura<br><span class="tag-cat cat-apicola">Apicultura</span></div>
+    <div class="termino-definicion">Actividad de crianza de abejas (género <em>Apis</em>) con fines de aprovechamiento de sus productos: miel, propóleo, cera, jalea real y veneno. En la región Piura se practica con abejas africanizadas adaptadas al clima seco del bosque tropical estacionalmente seco.</div>
+  </div>
+
+  <div class="termino">
+    <div class="termino-palabra">Panal<br><span class="tag-cat cat-apicola">Apicultura</span></div>
+    <div class="termino-definicion">Estructura de cera construida por las abejas formada por celdas hexagonales donde almacenan miel, polen y crías. En el juego se representa como un rectángulo con patrón hexagonal y una barra de <em>agresividad</em> que decrece al aplicarle humo.</div>
+  </div>
+
+  <div class="termino">
+    <div class="termino-palabra">Ahumador<br><span class="tag-cat cat-apicola">Apicultura</span></div>
+    <div class="termino-definicion">Herramienta apícola que genera humo frío para calmar las abejas. El humo interfiere con la comunicación química (feromonas de alarma) entre la colmena, reduciendo la agresividad. En el Nivel 1 el jugador aplica "ráfagas de humo" haciendo click sobre los panales.</div>
+  </div>
+
+  <div class="termino">
+    <div class="termino-palabra">Centrífuga<br><span class="tag-cat cat-apicola">Apicultura</span></div>
+    <div class="termino-definicion">Máquina que extrae la miel de los panales por fuerza centrífuga sin destruirlos. Los marcos de los panales se colocan en un tambor que gira a velocidad controlada, expulsando la miel hacia las paredes del recipiente. En el Nivel 2 se simula mediante control de RPM.</div>
+  </div>
+
+  <div class="termino">
+    <div class="termino-palabra">RPM<br><span class="tag-cat cat-apicola">Apicultura</span></div>
+    <div class="termino-definicion"><em>Revoluciones Por Minuto</em>. Medida de velocidad de rotación de la centrífuga. La zona óptima para extracción sin dañar los panales es de 600 a 1000 RPM. Por encima de 1000 RPM la maquinaria puede vibrar y el jugador pierde puntos.</div>
+  </div>
+
+  <div class="termino">
+    <div class="termino-palabra">Colmena<br><span class="tag-cat cat-apicola">Apicultura</span></div>
+    <div class="termino-definicion">Unidad de organización de una población de abejas. Puede ser natural (en huecos de árboles o paredes) o artificial (cajones apícolas de madera). En el bosque seco de Piura las abejas africanizadas anidan frecuentemente en árboles de algarrobo.</div>
+  </div>
+
+  <!-- JUEGO -->
+  <h2>Términos del Juego</h2>
+
+  <div class="termino">
+    <div class="termino-palabra">Agresividad<br><span class="tag-cat cat-juego">Mecánica</span></div>
+    <div class="termino-definicion">Variable de cada panal que representa cuán activas y defensivas están las abejas. Empieza en 100 y baja con cada ráfaga de humo aplicada al panal. Cuando llega a 0, el panal queda pacificado y el jugador gana 10 puntos.</div>
+  </div>
+
+  <div class="termino">
+    <div class="termino-palabra">Ráfaga de humo<br><span class="tag-cat cat-juego">Mecánica</span></div>
+    <div class="termino-definicion">Recurso limitado del Nivel 1 (20 ráfagas en total). Cada click sobre un panal consume una ráfaga y reduce su agresividad en 25 puntos. Si el jugador agota las ráfagas antes de pacificar los 4 panales, pierde el nivel.</div>
+  </div>
+
+  <div class="termino">
+    <div class="termino-palabra">Zona óptima<br><span class="tag-cat cat-juego">Mecánica</span></div>
+    <div class="termino-definicion">Rango de 600–1000 RPM en el velocímetro del Nivel 2 donde la centrífuga extrae miel activamente. Se visualiza en verde en el arco del velocímetro. Por debajo (gris) no hay extracción; por encima (rojo) se penaliza el puntaje.</div>
+  </div>
+
+  <div class="termino">
+    <div class="termino-palabra">Panel de administración<br><span class="tag-cat cat-juego">Función</span></div>
+    <div class="termino-definicion">Vista accesible usando el nombre especial <em>AdministradorUNP435*</em> en el formulario de inicio. Muestra una tabla con todos los récords guardados en MySQL, ordenados por puntaje de mayor a menor. Permite al docente verificar las partidas completadas.</div>
+  </div>
+
+  <!-- PIURA -->
+  <h2>Contexto Regional — Piura</h2>
+
+  <div class="termino">
+    <div class="termino-palabra">Bosque Seco<br><span class="tag-cat cat-piura">Piura</span></div>
+    <div class="termino-definicion">Ecosistema característico de la costa norte del Perú (región Piura, Lambayeque, Tumbes). Se trata de un bosque tropical estacionalmente seco con precipitaciones concentradas en verano (diciembre-marzo). Alberga especies endémicas adaptadas a la escasez hídrica como el algarrobo, el faique y el sapote.</div>
+  </div>
+
+  <div class="termino">
+    <div class="termino-palabra">Algarrobo<br><span class="tag-cat cat-piura">Piura</span></div>
+    <div class="termino-definicion"><em>Prosopis pallida</em>. Árbol leguminoso emblemático del bosque seco piurano. Puede alcanzar 12 metros de altura y vivir más de 1000 años. Sus vainas (<em>algarrobas</em>) son una fuente de alimento y sus flores atraen a las abejas. Se representa en el fondo decorativo del juego.</div>
+  </div>
+
+  <div class="termino">
+    <div class="termino-palabra">Abejas africanizadas<br><span class="tag-cat cat-piura">Piura</span></div>
+    <div class="termino-definicion">Híbrido entre la abeja europea (<em>Apis mellifera</em>) y la africana (<em>A. m. scutellata</em>), presente en la región Piura. Son más defensivas que las europeas y producen mayor cantidad de miel, adaptándose bien al clima cálido y seco. La mecánica de agresividad del Nivel 1 refleja esta característica.</div>
+  </div>
+
+  <div class="termino">
+    <div class="termino-palabra">UNP<br><span class="tag-cat cat-piura">Institución</span></div>
+    <div class="termino-definicion">Universidad Nacional de Piura, institución pública de educación superior ubicada en la ciudad de Piura, Perú. Fundada en 1961. Este videojuego fue desarrollado como proyecto académico para la asignatura dictada por el Dr. Walter Richard Paiva Ayala en el año 2026.</div>
+  </div>
+
+  <footer>Apicultura en el Bosque Seco · UNP 2026 · Región Piura, Perú</footer>
+</div>
+</body>
+</html>
